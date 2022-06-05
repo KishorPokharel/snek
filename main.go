@@ -46,7 +46,7 @@ func run() error {
 	}
 	defer ttf.Quit()
 
-	font, err := ttf.OpenFont("res/fonts/SplineSansMonoBold.ttf", 50)
+	font, err := ttf.OpenFont("res/fonts/SplineSansMonoBold.ttf", 20)
 	if err != nil {
 		return fmt.Errorf("could not open font: %v", err)
 	}
@@ -108,12 +108,11 @@ func run() error {
 	renderer.SetDrawColor(0, 0, 0, 255)
 	renderer.Clear()
 
-	var textSize int32 = 400
 	r := &sdl.Rect{
-		(winWidth / 2) - (textSize / 2),
-		(winHeight / 2) - (textSize / 2),
-		textSize,
-		textSize,
+		(winWidth / 2) - (fontSurface.W / 2),
+		(winHeight / 2) - (fontSurface.H / 2),
+		fontSurface.W,
+		fontSurface.H,
 	}
 
 	renderer.Copy(texture, nil, r)
