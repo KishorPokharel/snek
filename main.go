@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "embed"
 	"fmt"
 	"log"
 	"math/rand"
@@ -12,6 +13,9 @@ import (
 
 var winWidth, winHeight int32 = 700, 700
 var running = true
+
+//go:embed res/fonts/SplineSansMonoBold.ttf
+var fb []byte
 
 func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
@@ -46,7 +50,12 @@ func run() error {
 	}
 	defer ttf.Quit()
 
-	font, err := ttf.OpenFont("res/fonts/SplineSansMonoBold.ttf", 20)
+	rwops, err := sdl.RWFromMem(fb)
+	if err != nil {
+		return fmt.Errorf("could not create RWops from Mem: %v", err)
+	}
+
+	font, err := ttf.OpenFontIndexRW(rwops, 0, 20, 0) // don't know what this second argument is :(
 	if err != nil {
 		return fmt.Errorf("could not open font: %v", err)
 	}
