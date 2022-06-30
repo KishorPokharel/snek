@@ -12,7 +12,7 @@ func newFood(snek *snek) *food {
 		y := randInt(20, winHeight-snekSize)
 		x = x - x%snekSize
 		y = y - y%snekSize
-		pos := sdl.Rect{x, y, snekSize, snekSize}
+		pos := sdl.Rect{X: x, Y: y, W: snekSize, H: snekSize}
 		if snek.collidesWithNewFood(&pos) {
 			continue
 		}
@@ -21,5 +21,4 @@ func newFood(snek *snek) *food {
 			pos: pos,
 		}
 	}
-	return nil
 }

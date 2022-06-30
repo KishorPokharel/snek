@@ -21,7 +21,7 @@ func newSnek() *snek {
 		movement: [2]int32{-1, 0},
 		tailDir:  [2]int32{-1, 0},
 	}
-	s.body[0] = sdl.Rect{s.x, s.y, snekSize, snekSize}
+	s.body[0] = sdl.Rect{X: s.x, Y: s.y, W: snekSize, H: snekSize}
 	return &s
 }
 
@@ -43,7 +43,7 @@ func (s *snek) updateSnekBody() {
 	if s.isGoingDown() {
 		s.y = s.y + snekSize
 	}
-	s.body[0] = sdl.Rect{s.x, s.y, snekSize, snekSize}
+	s.body[0] = sdl.Rect{X: s.x, Y: s.y, W: snekSize, H: snekSize}
 	for i := 1; i < len(s.body); i++ {
 		nextX, nextY := s.body[i].X, s.body[i].Y
 		if i == len(s.body)-1 {
@@ -66,7 +66,7 @@ func (s *snek) updateSnekBody() {
 				s.tailDir[1] = 1
 			}
 		}
-		s.body[i] = sdl.Rect{prevX, prevY, snekSize, snekSize}
+		s.body[i] = sdl.Rect{X: prevX, Y: prevY, W: snekSize, H: snekSize}
 		prevX, prevY = nextX, nextY
 	}
 }
@@ -146,19 +146,19 @@ func (s *snek) ateFood(f *food) bool {
 func (s *snek) grow() {
 	x, y := s.body[len(s.body)-1].X, s.body[len(s.body)-1].Y
 	if s.tailIsGoingLeft() {
-		s.body = append(s.body, sdl.Rect{x + snekSize, y, snekSize, snekSize})
+		s.body = append(s.body, sdl.Rect{X: x + snekSize, Y: y, W: snekSize, H: snekSize})
 		return
 	}
 	if s.tailIsGoingRight() {
-		s.body = append(s.body, sdl.Rect{x - snekSize, y, snekSize, snekSize})
+		s.body = append(s.body, sdl.Rect{X: x - snekSize, Y: y, W: snekSize, H: snekSize})
 		return
 	}
 	if s.tailIsGoingUp() {
-		s.body = append(s.body, sdl.Rect{x, y + snekSize, snekSize, snekSize})
+		s.body = append(s.body, sdl.Rect{X: x, Y: y + snekSize, W: snekSize, H: snekSize})
 		return
 	}
 	if s.tailIsGoingLeft() {
-		s.body = append(s.body, sdl.Rect{x, y - snekSize, snekSize, snekSize})
+		s.body = append(s.body, sdl.Rect{X: x, Y: y - snekSize, W: snekSize, H: snekSize})
 		return
 	}
 }
